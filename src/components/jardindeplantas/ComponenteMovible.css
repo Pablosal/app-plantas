@@ -1,0 +1,25 @@
+.container_drag {
+  width: 100%;
+  background-color: brown;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+}
+.earthbounding {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 350px;
+  height: 100px;
+}
+.container_description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}

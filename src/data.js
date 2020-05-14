@@ -1,0 +1,15 @@
+export const planta = {
+  icon: "",
+  nombre: "banana",
+  nombreCientifico: "Expertasis penona",
+  plantaImage: "",
+  descripcion: "lorem ipsim",
+  plantadeSol: false,
+  cuandoRegar: "cada 2 dias",
+  colocarAbono: "cada 3 semanas",
+  mesesDePlantar: "otoño",
+  transplante: "a los 4 meses",
+  asociacionesBuenas: ["naranja", "platano", "manzana", "pepino"],
+  asociacionesMalas: ["poto", "pipi", "nepe", "caca"],
+  temperatura: "25°",
+};
