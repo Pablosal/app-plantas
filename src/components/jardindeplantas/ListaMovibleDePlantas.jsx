@@ -1,38 +1,9 @@
 import React, { Component, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import icon from "../../images/bonado.png";
+import { Link } from "react-router-dom";
 import "./ComponenteMovible.css";
-const DUMMY_DATA = [
-  {
-    image: icon,
-    nombre: "Almendro",
-    fecha: "08/05/2020",
-    regado: "en 3 dias mas",
-    abono: "en 2 dias mas",
-    id: "1-arbol",
-  },
-  {
-    image: icon,
-    nombre: "Palto",
-    fecha: "08/05/2020",
-    regado: "en 5 dias mas",
-    abono: "en 28 dias mas",
-    id: "2-arbol",
-  },
-  {
-    image: icon,
-    nombre: "Pasto",
-    fecha: "08/05/2019",
-    regado: "en 3 dias mas",
-    abono: "en 2 dias mas",
-    id: "3-arbol",
-  },
-];
-
+import { useSelector } from "react-redux";
 // fake data generator
-const getItems = () => {
-  return DUMMY_DATA;
-};
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -42,7 +13,6 @@ const reorder = (list, startIndex, endIndex) => {
 
   return result;
 };
-
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -74,7 +44,10 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ListaMovibleDePlantas = () => {
-  const [items, setItems] = useState(getItems());
+  const arboles = useSelector((state) => state).jardin;
+
+  const [items, setItems] = useState(arboles);
+
   const onDragEnd = (resultado) => {
     if (!resultado.destination) return;
     const newItems = reorder(
@@ -85,7 +58,8 @@ const ListaMovibleDePlantas = () => {
 
     setItems(newItems);
   };
-
+  console.log(arboles);
+  console.log(items);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -113,15 +87,15 @@ const ListaMovibleDePlantas = () => {
                       style={{ width: "100%" }}
                     >
                       <img
-                        src={icon}
+                        src={item.image}
                         width="70px"
                         alt=""
                         className="container_leftSide "
                       />
                       <div className="container_heading d-flex flex-column justify-content-center align-items-center">
-                        <h5>Almendro</h5>
+                        <h5>{item.nombre}</h5>
                         <h6>
-                          Fecha Plantacion <strong>12/08/09</strong>
+                          Fecha Plantacion <strong>{item.fecha}</strong>
                         </h6>
                       </div>
                     </div>
@@ -130,7 +104,14 @@ const ListaMovibleDePlantas = () => {
                       style={{ width: "100%" }}
                     >
                       <i className="fas fa-hand-holding-water fa-2x "></i>
-                      <i class="fas fa-seedling fa-2x"></i>
+                      <Link
+                        to={`/arboles/${item.nombre.toLocaleLowerCase()}`}
+                        className="btn btn-danger"
+                      >
+                        {" "}
+                        Ver Planta
+                      </Link>
+                      <i className="fas fa-seedling fa-2x"></i>
                     </div>
                   </div>
                 )}

@@ -1,31 +1,28 @@
-import React, { useState } from "react";
-import DUMMY from '../../dataDummy.json'
+import React, { useState, useEffect } from "react";
+import DUMMY from "../../dataDummy.json";
+import { useDispatch } from "react-redux";
+import Autocomplete from "react-autocomplete";
+import { añadirPlanta } from "../../redux/actions/AbolesActions";
 const AgregarPlantaJardin = () => {
+  const dispatch = useDispatch();
   const [nuevaPlanta, setNuevaPlanta] = useState({
     planta: "",
     fecha: "",
     regado: false,
     abono: false,
   });
-  let [plantas, setPlantas] = useState([])
+
   const handleChange = (e) => {
     setNuevaPlanta({ ...nuevaPlanta, [e.target.name]: e.target.value });
-    buscarPlante(nuevaPlanta.planta)
   };
-  const buscarPlante = (texto) =>{
-    if(nuevaPlanta.planta.length===0) return
-    let match = DUMMY.arboles.filter(p=>{
-      const regex = new RegExp(`^${texto}`,'gi')
-      return console.log(p.nombre.match(regex))
-      
-    })
 
-    if(match.length > 0){
-      return <ul> <li>nombre</li></ul>
-    }
-  }
   return (
     <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(nuevaPlanta);
+        dispatch(añadirPlanta(nuevaPlanta));
+      }}
       action=""
       className="bg-white p-5 text-dark "
       style={{ width: "500px" }}
@@ -33,14 +30,25 @@ const AgregarPlantaJardin = () => {
       <h5>Agregar una nueva planta a mi jardin</h5>
       <div className="form-group">
         <label htmlFor="planta">Planta</label>
-        <input
-          className="form-control"
-          type="search"
+        <Autocomplete
+          getItemValue={(item) => item.nombre}
+          items={DUMMY.arboles}
+          renderItem={(item, isHighlighted) => (
+            <div style={{ background: isHighlighted ? "lightgray" : "white" }}>
+              {item.nombre}
+            </div>
+          )}
           name="planta"
           id="planta"
-          onChange={handleChange}
+          className="form-control"
+          onChange={(e) =>
+            setNuevaPlanta({ ...nuevaPlanta, planta: e.target.value })
+          }
           value={nuevaPlanta.planta}
-        />
+          onSelect={(value) =>
+            setNuevaPlanta({ ...nuevaPlanta, planta: value })
+          }
+        ></Autocomplete>
       </div>
       <div className="form-group">
         <label htmlFor="fecha">Fecha Plantado</label>
@@ -63,7 +71,7 @@ const AgregarPlantaJardin = () => {
           onChange={handleChange}
           checked={nuevaPlanta.regado}
         />
-        <label class="form-check-label" htmlFor="regado">
+        <label className="form-check-label" htmlFor="regado">
           Recordar Regado
         </label>
       </div>
@@ -76,7 +84,7 @@ const AgregarPlantaJardin = () => {
           onChange={handleChange}
           checked={nuevaPlanta.abono}
         />
-        <label class="form-check-label" htmlFor="abono">
+        <label className="form-check-label" htmlFor="abono">
           Recordar Abono
         </label>
       </div>

@@ -10,20 +10,25 @@ import Backdrop from "./components/modal/Backdrop";
 import TableForm from "./components/modal/TableForm";
 import MisPlantas from "./page/MisPlantas";
 import Sidebar from "./components/sidebar/Sidebar";
+import { useSelector } from "react-redux";
+
 function App() {
+  const arboles = useSelector((state) => state);
   return (
     <Router>
       <Sidebar></Sidebar>
       <Switch>
-        <Route exact path="arboles/:id">
-          <PlantaIndividual />
+        <Route exact path="/arboles/:id">
+          <PlantaIndividual arbolito={arboles.jardin} />
         </Route>
-
         <Route exact path="/arboles">
-          <PaignaArboles />
+          <PaignaArboles
+            arbolito={arboles.jardin}
+            categorias={arboles.categorias}
+          />
         </Route>
         <Route path="/">
-          <MisPlantas />
+          <MisPlantas plantas={arboles} />
         </Route>
       </Switch>
     </Router>
