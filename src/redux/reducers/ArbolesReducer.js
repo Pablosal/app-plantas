@@ -2,7 +2,7 @@ import { ActionTypes } from "../actions/Types";
 import icon from "../../images/bonado.png";
 
 let initialState = {
-  categorias: ["Ficeae", "Limonero"],
+  categorias: ["Ficeae", "Limonero", "Magnoliopsida"],
   jardin: [
     {
       image: icon,
@@ -12,7 +12,7 @@ let initialState = {
       abono: "en 2 dias mas",
       id: "1-arbol",
       nombreCientifico: "Prunus dulcis",
-      categoria: "	Magnoliopsida",
+      categoria: "Magnoliopsida",
       temperatura: "15-18°",
       luz: true,
       transplantado: "Final de Otoño",
@@ -39,18 +39,29 @@ let initialState = {
       id: "3-arbol",
     },
   ],
+  misPlantas: [
+    {
+      image: icon,
+      nombre: "Almendro",
+      fecha: "08/05/2020",
+      regado: "en 3 dias mas",
+      abono: "en 2 dias mas",
+      id: "1-arbol",
+    },
+  ],
 };
 const ArbolesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.AÑADIR_PLANTA:
-      console.log(state.jardin);
-      return {
-        jardin: [...state.jardin, action.payload],
-      };
+      console.log(action.payload);
+      console.log(state.misPlantas);
+      console.log(state.jardin.find((p) => p.nombre === action.payload.nombre));
+      return { ...state, misPlantas: [...state.misPlantas, action.payload] };
 
     case ActionTypes.ELIMINAR_PLANTA:
       return {
-        jardin: state.jardin.filter((j) => j.id !== action.payload),
+        ...state,
+        misPlantas: state.misPlantas.filter((j) => j.id !== action.payload),
       };
 
     default:

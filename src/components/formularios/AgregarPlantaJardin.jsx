@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import DUMMY from "../../dataDummy.json";
 import { useDispatch } from "react-redux";
 import Autocomplete from "react-autocomplete";
 import { añadirPlanta } from "../../redux/actions/AbolesActions";
-const AgregarPlantaJardin = () => {
+import { v4 as uuidv4 } from "uuid";
+import icon from "../../images/bonado.png";
+
+const AgregarPlantaJardin = ({ arbolito, displayModal }) => {
   const dispatch = useDispatch();
   const [nuevaPlanta, setNuevaPlanta] = useState({
-    planta: "",
+    image: icon,
+    id: uuidv4(),
+    nombre: "",
     fecha: "",
     regado: false,
     abono: false,
@@ -20,8 +24,9 @@ const AgregarPlantaJardin = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(nuevaPlanta);
+
         dispatch(añadirPlanta(nuevaPlanta));
+        displayModal();
       }}
       action=""
       className="bg-white p-5 text-dark "
@@ -32,21 +37,24 @@ const AgregarPlantaJardin = () => {
         <label htmlFor="planta">Planta</label>
         <Autocomplete
           getItemValue={(item) => item.nombre}
-          items={DUMMY.arboles}
+          items={arbolito}
           renderItem={(item, isHighlighted) => (
-            <div style={{ background: isHighlighted ? "lightgray" : "white" }}>
+            <div
+              key={uuidv4()}
+              style={{ background: isHighlighted ? "lightgray" : "white" }}
+            >
               {item.nombre}
             </div>
           )}
-          name="planta"
-          id="planta"
+          name="nombre"
+          id="nombre"
           className="form-control"
           onChange={(e) =>
-            setNuevaPlanta({ ...nuevaPlanta, planta: e.target.value })
+            setNuevaPlanta({ ...nuevaPlanta, nombre: e.target.value })
           }
-          value={nuevaPlanta.planta}
+          value={nuevaPlanta.nombre}
           onSelect={(value) =>
-            setNuevaPlanta({ ...nuevaPlanta, planta: value })
+            setNuevaPlanta({ ...nuevaPlanta, nombre: value })
           }
         ></Autocomplete>
       </div>

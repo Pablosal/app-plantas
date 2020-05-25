@@ -5,7 +5,6 @@ import AsociacionSingular from "../components/plantaIndividual/AsociacionSingula
 import { useParams } from "react-router-dom";
 import DescripcionImagen from "../components/plantaIndividual/DescripcionImagen";
 import DescripcionPlanta from "../components/plantaIndividual/DescripcionPlanta";
-import data from "../dataDummy";
 const PlantaIndividual = ({ arbolito }) => {
   const parametros = useParams();
   const esteArbol = arbolito.find(

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ListaMovibleDePlantas from "../components/jardindeplantas/ListaMovibleDePlantas";
 import TableForm from "../components/modal/TableForm";
 import Backdrop from "../components/modal/Backdrop";
-const MisPlantas = () => {
+const MisPlantas = ({ arbolito }) => {
   const [show, setShow] = useState(false);
+
   function displayModal() {
     setShow(!show);
   }
@@ -14,7 +15,7 @@ const MisPlantas = () => {
       </button>
       <ListaMovibleDePlantas />
       {show && <Backdrop displayModal={displayModal}></Backdrop>}
-      {show && <TableForm />}
+      {show && <TableForm arbolitos={arbolito} displayModal={displayModal} />}
     </div>
   );
 };

@@ -28,7 +28,7 @@ function App() {
           />
         </Route>
         <Route path="/">
-          <MisPlantas plantas={arboles} />
+          <MisPlantas plantas={arboles} arbolito={arboles.jardin} />
         </Route>
       </Switch>
     </Router>

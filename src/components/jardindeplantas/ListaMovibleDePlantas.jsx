@@ -1,9 +1,10 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Link } from "react-router-dom";
 import "./ComponenteMovible.css";
-import { useSelector } from "react-redux";
-// fake data generator
+import { useSelector, useDispatch } from "react-redux";
+import { eliminarPlanta } from "../../redux/actions/AbolesActions";
+// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator// fake data generator
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -44,10 +45,12 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ListaMovibleDePlantas = () => {
-  const arboles = useSelector((state) => state).jardin;
-
-  const [items, setItems] = useState(arboles);
-
+  const arboles = useSelector((state) => state);
+  const [items, setItems] = useState(arboles.misPlantas);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setItems(arboles.misPlantas);
+  }, [arboles]);
   const onDragEnd = (resultado) => {
     if (!resultado.destination) return;
     const newItems = reorder(
@@ -58,8 +61,7 @@ const ListaMovibleDePlantas = () => {
 
     setItems(newItems);
   };
-  console.log(arboles);
-  console.log(items);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -103,15 +105,43 @@ const ListaMovibleDePlantas = () => {
                       className="container_description d-flex justify-content-around"
                       style={{ width: "100%" }}
                     >
-                      <i className="fas fa-hand-holding-water fa-2x "></i>
+                      {item.regado && (
+                        <>
+                          <i className="fas fa-hand-holding-water fa-2x "></i>
+                          <h6>
+                            {
+                              arboles.jardin.find(
+                                (p) => p.nombre === item.nombre
+                              ).regado
+                            }
+                          </h6>
+                        </>
+                      )}
                       <Link
-                        to={`/arboles/${item.nombre.toLocaleLowerCase()}`}
+                        to={`/arboles/${item.nombre.toLowerCase()}`}
                         className="btn btn-danger"
                       >
                         {" "}
                         Ver Planta
                       </Link>
-                      <i className="fas fa-seedling fa-2x"></i>
+                      {item.abono && (
+                        <>
+                          <i className="fas fa-seedling fa-2x"></i>
+                          <h6>
+                            {
+                              arboles.jardin.find(
+                                (p) => p.nombre === item.nombre
+                              ).abono
+                            }
+                          </h6>
+                        </>
+                      )}
+                      <button
+                        className="btn btn-success"
+                        onClick={() => dispatch(eliminarPlanta(item.id))}
+                      >
+                        X
+                      </button>
                     </div>
                   </div>
                 )}

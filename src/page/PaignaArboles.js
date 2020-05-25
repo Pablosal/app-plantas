@@ -23,7 +23,7 @@ const PaignaArboles = ({ categorias, arbolito }) => {
                   >
                     <Link
                       style={{ height: "100%", color: "black" }}
-                      to={`/arboles/${d.nombre}`}
+                      to={`/arboles/${d.nombre.toLowerCase()}`}
                       className="justify-content-between align-items-center d-flex flex-column"
                     >
                       <img

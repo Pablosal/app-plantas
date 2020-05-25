@@ -14,7 +14,10 @@ const TableForm = (props) => {
         position: "fixed",
       }}
     >
-      <AgregarPlantaJardin />
+      <AgregarPlantaJardin
+        displayModal={props.displayModal}
+        arbolito={props.arbolitos}
+      />
     </div>,
     document.getElementById("modal-root")
   );
