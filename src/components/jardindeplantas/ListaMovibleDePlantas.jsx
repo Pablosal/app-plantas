@@ -39,9 +39,10 @@ const getListStyle = (isDraggingOver) => ({
   padding: grid,
   width: "100%",
   display: "flex",
-  justifyContent: "center",
+  alignItems: "center",
   flexWrap: "wrap",
   flexDirection: "column",
+  height: "100vh",
 });
 
 const ListaMovibleDePlantas = () => {

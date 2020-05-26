@@ -6,12 +6,11 @@ const TableForm = (props) => {
   return ReactDOM.createPortal(
     <div
       style={{
-        display: "flex",
+        display: "block",
         justifyContent: "center",
         alignItems: "center",
         zIndex: "12",
-        height: "100vh",
-        position: "fixed",
+        position: "absolute",
       }}
     >
       <AgregarPlantaJardin

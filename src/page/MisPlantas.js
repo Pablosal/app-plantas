@@ -9,7 +9,16 @@ const MisPlantas = ({ arbolito }) => {
     setShow(!show);
   }
   return (
-    <div style={{ height: "100vh" }}>
+    <div
+      className="container"
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "0",
+      }}
+    >
       <button className="btn btn-success btn-block" onClick={displayModal}>
         Agregar Plata
       </button>

@@ -28,16 +28,28 @@ const AgregarPlantaJardin = ({ arbolito, displayModal }) => {
         dispatch(añadirPlanta(nuevaPlanta));
         displayModal();
       }}
-      action=""
       className="bg-white p-5 text-dark "
       style={{ width: "500px" }}
     >
-      <h5>Agregar una nueva planta a mi jardin</h5>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <h5>Agregar una nueva planta a mi jardin</h5>
+        <button className="btn btn-danger" onClick={() => displayModal()}>
+          X
+        </button>
+      </div>
+      <br />
       <div className="form-group">
         <label htmlFor="planta">Planta</label>
         <Autocomplete
           getItemValue={(item) => item.nombre}
           items={arbolito}
+          required
           renderItem={(item, isHighlighted) => (
             <div
               key={uuidv4()}
@@ -66,6 +78,7 @@ const AgregarPlantaJardin = ({ arbolito, displayModal }) => {
           name="fecha"
           id="fecha"
           onChange={handleChange}
+          required
           value={nuevaPlanta.fecha}
         />
       </div>

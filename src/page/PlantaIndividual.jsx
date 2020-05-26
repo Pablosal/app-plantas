@@ -12,10 +12,19 @@ const PlantaIndividual = ({ arbolito }) => {
   );
 
   return (
-    <div className="container border border-success rounded-top d-flex flex-column">
-      <DescripcionPlanta arbolito={esteArbol} />
-      <DescripcionImagen arbolito={esteArbol} />
-      <DescripcionAvanzada arbolito={esteArbol} />
+    <div
+      className="container border border-success d-flex flex-column"
+      style={{ height: "100%" }}
+    >
+      <br />
+      <h1>{esteArbol.nombre}</h1>
+      <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <DescripcionPlanta arbolito={esteArbol} />
+          <DescripcionAvanzada arbolito={esteArbol} />
+        </div>
+        <DescripcionImagen arbolito={esteArbol} />
+      </div>
       {/* <AsociacionSingular />
       <RecomendacionesPersonales /> */}
     </div>

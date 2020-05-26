@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 const PaignaArboles = ({ categorias, arbolito }) => {
   return (
     <div className="container d-flex flex-column" style={{ height: "100vh" }}>
+      <h2 style={{ borderBottom: "2px solid black" }}>
+        Arboles Según Categoria
+      </h2>
+      <br />
       {categorias.map((c) => {
         return (
           <div key={c}>
@@ -26,12 +30,7 @@ const PaignaArboles = ({ categorias, arbolito }) => {
                       to={`/arboles/${d.nombre.toLowerCase()}`}
                       className="justify-content-between align-items-center d-flex flex-column"
                     >
-                      <img
-                        height="120px"
-                        width="120px"
-                        src={d.imageDescription}
-                        alt=""
-                      />
+                      <img height="120px" width="120px" src={d.imagen} alt="" />
                       <h5>{d.nombre}</h5>
                     </Link>
                   </div>
